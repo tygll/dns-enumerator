@@ -20,23 +20,24 @@ def process_file(domain_file):
 		for line in lines:
 			domain_list.append(line.strip())
 		for domain in domain_list:
+			print("="*12 +domain+ "="*12)
 			resolve_domain(domain)
 			
 def resolve_domain(domain):
 	for records in RECORD_TYPES:
 		try:
 		    answer = dns.resolver.resolve(domain, records)
-		    print(f'{records} Records')
+		    print(f"{records} Records")
 		    for server in answer:
 		        print("\t- "+ server.to_text())
 		    print()
 		except dns.resolver.NoAnswer:
 		    pass
 		except dns.resolver.NXDOMAIN:
-		    print(f'{domain} does not exist.')
+		    print(f"{domain} does not exist.\n")
 		    quit()
 		except KeyboardInterrupt:
-		    print('Quitting.')
+		    print("Quitting.")
 		    quit()
 
 def main():
